@@ -5,12 +5,29 @@ import java.sql.DriverManager;
 
 public class DBConnection {
 
-    public static Connection getConnection() throws Exception {
+    private static final String URL =
+            "jdbc:mysql://localhost:3306/stockmate_db";
 
-        String url = "jdbc:mysql://localhost:3306/stockmate_db";
-        String user = "root";
-        String password = "apache24"; // change this
+    private static final String USER = "root";
 
-        return DriverManager.getConnection(url, user, password);
+    private static final String PASSWORD = "apache24";
+
+    public static Connection getConnection() {
+
+        try {
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            return DriverManager.getConnection(
+                    URL,
+                    USER,
+                    PASSWORD
+            );
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return null;
+        }
     }
 }
